@@ -1,0 +1,7 @@
+streamlit>=1.45,<2
+ultralytics>=8.4.0
+opencv-python-headless>=4.10
+numpy>=1.26,<2.0
+pandas>=2.2,<3
+mediapipe>=0.10.21
+requests>=2.32
