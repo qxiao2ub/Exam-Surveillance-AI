@@ -137,3 +137,9 @@ Actual web-search detection cannot be reliably inferred from the webcam. If exam
 This prototype can generate false positives and false negatives. Examples include a family member briefly entering the background, normal talking before an exam starts, a permitted phone stored in view, reflections that resemble a second screen, or pre-existing marks on paper. The final interpretation must remain with an authorized human reviewer.
 
 Do not add face recognition, demographic inference, or covert identity tracking to this prototype.
+
+
+## App user counter
+
+The Streamlit app now shows **App users** on the main page, in the sidebar, and at the bottom of the page. A new Streamlit browser session adds one count without using a database or external analytics service. See `USER_COUNTER.md` for the implementation and the important Community Cloud persistence limitation.
+

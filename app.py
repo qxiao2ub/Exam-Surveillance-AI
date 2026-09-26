@@ -13,6 +13,8 @@ from typing import Optional, Tuple
 import pandas as pd
 import streamlit as st
 
+from user_counter import render_count
+
 from proctor_engine import (
     AUTHOR,
     MENTOR,
@@ -37,6 +39,7 @@ st.markdown(
 .block-container {padding-top: 2rem; padding-bottom: 4rem;}
 .credit {font-size: 0.95rem; opacity: 0.8; margin-top: -0.5rem;}
 .review-box {padding: 0.9rem 1rem; border: 1px solid rgba(128,128,128,.28); border-radius: 0.65rem;}
+.visitor-counter {margin-top: 1.25rem; padding: 0.65rem 0.85rem; border: 1px solid rgba(120,180,255,.35); border-radius: 0.65rem; background: rgba(120,180,255,.08); text-align: center;}
 </style>
 """,
     unsafe_allow_html=True,
@@ -44,6 +47,10 @@ st.markdown(
 
 st.title("🎓 Exam Surveillance AI Review Prototype")
 st.markdown(f'<div class="credit"><b>Author:</b> {AUTHOR} &nbsp; | &nbsp; <b>Mentor:</b> {MENTOR}</div>', unsafe_allow_html=True)
+
+# No-database app visitor/session counter. A new Streamlit session is counted once.
+render_count("main")
+
 st.info(
     "This prototype flags suspicious-looking events for human review. It does not determine that a student cheated, "
     "and its outputs should not be used as the sole basis for disciplinary action."
@@ -66,6 +73,7 @@ with st.expander("What this prototype can flag", expanded=False):
 
 status = runtime_status()
 with st.sidebar:
+    render_count("sidebar")
     st.header("Analysis settings")
     model_choice = st.selectbox("YOLO model", ["yolo26n.pt", "yolo11n.pt", "yolov8n.pt"], index=0)
     confidence = st.slider("Object confidence", 0.10, 0.80, 0.25, 0.05)
@@ -253,6 +261,8 @@ if results:
             d3.download_button("Event JSON", event_json.read_bytes(), event_json.name, "application/json", key=f"json_{idx}")
             report = Path(artifacts["review_report_html"])
             d4.download_button("HTML report", report.read_bytes(), report.name, "text/html", key=f"html_{idx}")
+
+render_count("footer")
 
 st.divider()
 st.subheader("Future Zoom / Google Meet / Microsoft Teams integration")

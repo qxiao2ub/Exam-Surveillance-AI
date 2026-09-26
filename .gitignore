@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.DS_Store
+.idea/
+.vscode/
+proctor_outputs/
+outputs/
+*.pt
+*.task
+*.mp4
+*.mov
+*.avi
+*.mkv
+!notebooks/*.ipynb
